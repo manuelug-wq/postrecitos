@@ -145,7 +145,8 @@ body { background: var(--espresso); color: var(--text); font-family: 'Outfit', s
 .ings-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--dust); }
 .ings-item:last-child { border-bottom: none; }
 .ings-left { display: flex; align-items: center; gap: 11px; }
-.ings-icon { width: 38px; height: 38px; background: var(--dust); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.ings-icon { width: 48px; height: 48px; background: var(--dust); border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.ings-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ings-name { font-size: 0.92rem; font-weight: 600; color: var(--espresso); }
 .ings-base { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
 .ings-right { text-align: right; }
@@ -161,8 +162,10 @@ body { background: var(--espresso); color: var(--text); font-family: 'Outfit', s
 /* ══ COMPRAS ══ */
 .shop-item { display: flex; align-items: center; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid var(--dust); }
 .shop-item:last-child { border-bottom: none; }
-.shop-left { display: flex; align-items: center; gap: 11px; }
+.shop-left { display: flex; align-items: center; gap: 10px; }
 .shop-badge { background: var(--espresso); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 700; min-width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; padding: 0 7px; flex-shrink: 0; }
+.shop-ing-thumb { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; flex-shrink: 0; background: var(--dust); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.shop-ing-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .shop-name { font-size: 0.9rem; font-weight: 600; color: var(--espresso); }
 .shop-detail { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
 .shop-price { font-size: 0.92rem; font-weight: 700; color: var(--cocoa); }
@@ -173,7 +176,8 @@ body { background: var(--espresso); color: var(--text); font-family: 'Outfit', s
 /* ══ RECETA ══ */
 .ic-item { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--dust); }
 .ic-item:last-child { border-bottom: none; }
-.ic-icon { width: 36px; height: 36px; background: var(--dust); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+.ic-icon { width: 48px; height: 48px; background: var(--dust); border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.ic-icon img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ic-info { flex: 1; min-width: 0; }
 .ic-name { font-size: 0.88rem; font-weight: 600; color: var(--espresso); }
 .ic-meta { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
@@ -472,6 +476,59 @@ body { background: var(--espresso); color: var(--text); font-family: 'Outfit', s
 const PIN = '5050';
 const EMOJIS = ['🍰','🎂','🧁','🍮','🍫','🥧','🍩','🍪','🥐','🍞'];
 
+const ING_IMGS = {
+  'azucar glass': 'powdered-sugar.jpg',
+  'crema batida|crema chantilly|crema para batir': 'whipped-cream.jpg',
+  'queso crema': 'cream-cheese.jpg',
+  'cafe nescafe|nescafe': 'instant-coffee-powder.jpg',
+  'huevo': 'eggs.jpg',
+  'azucar': 'white-sugar.jpg',
+  'harina': 'flour.jpg',
+  'mantequilla': 'butter.jpg',
+  'leche': 'whole-milk.jpg',
+  'crema': 'heavy-cream.jpg',
+  'mascarpone': 'mascarpone.jpg',
+  'queso': 'parmesan.jpg',
+  'cacao': 'cocoa-powder.jpg',
+  'chocolate': 'dark-chocolate-pieces.jpg',
+  'cafe|coffee|espresso': 'instant-coffee-powder.jpg',
+  'vainilla|vanilla': 'vanilla-extract.jpg',
+  'lengua|savoiardi|bizcocho|galleta': 'shortbread-cookie.jpg',
+  'aceite': 'corn-oil.jpg',
+  'sal': 'salt.jpg',
+  'agua': 'water.jpg',
+  'limon': 'lemon.jpg',
+  'naranja': 'orange.jpg',
+  'fresa': 'strawberries.jpg',
+  'mango': 'mango.jpg',
+  'nuez': 'walnuts.jpg',
+  'almendra': 'almonds.jpg',
+  'canela': 'cinnamon.jpg',
+  'gelatina': 'gelatin-powder.jpg',
+  'levadura': 'dry-yeast.jpg',
+  'bicarbonato': 'baking-soda.jpg',
+  'hornear': 'baking-powder.jpg',
+  'frambuesa': 'raspberries.jpg',
+  'arandano': 'blueberries.jpg',
+};
+
+function getIngImg(nombre) {
+  const n = nombre.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+  for (const [kw, file] of Object.entries(ING_IMGS)) {
+    if (kw.split('|').some(k => n.includes(k))) {
+      return 'https://img.spoonacular.com/ingredients_100x100/' + file;
+    }
+  }
+  return null;
+}
+
+function ingIcon(nombre, u) {
+  const src = getIngImg(nombre);
+  return src
+    ? `<img src="${src}" alt="" loading="lazy" onerror="this.outerHTML='<span style=\\'font-size:1.2rem\\'>${emj(u)}</span>'">`
+    : `<span style="font-size:1.2rem">${emj(u)}</span>`;
+}
+
 // ══ ESTADO ══
 let pinVal = '';
 let productos = [];   // [{id, nombre, emoji, base, ings:[]}]
@@ -704,7 +761,7 @@ function recalcular() {
     costoTotal+=costo;
     const cantFmt=(cant%1<0.05)?cant.toFixed(0):cant.toFixed(1);
     html+=`<div class="ings-item">
-      <div class="ings-left"><div class="ings-icon">${emj(ing.u)}</div>
+      <div class="ings-left"><div class="ings-icon">${ingIcon(ing.nombre, ing.u)}</div>
         <div><div class="ings-name">${ing.nombre}</div><div class="ings-base">Base: ${ing.cantBase} ${ing.u} / ${p.base} porc.</div></div>
       </div>
       <div class="ings-right"><div class="ings-qty">${cantFmt} <span style="font-size:.75rem;font-weight:400;color:var(--muted)">${ing.u}</span></div><div class="ings-cost">L ${costo.toFixed(2)}</div></div>
@@ -782,8 +839,9 @@ function renderCompras() {
     const paq=Math.ceil(cant/ing.paqC);
     const cost=paq*ing.paqP;
     total+=cost;
+    const thumb = getIngImg(ing.nombre);
     html+=`<div class="shop-item">
-      <div class="shop-left"><div class="shop-badge">${paq}</div>
+      <div class="shop-left"><div class="shop-badge">${paq}</div><div class="shop-ing-thumb">${thumb ? `<img src="${thumb}" alt="" loading="lazy" onerror="this.outerHTML='<span style=\\'font-size:1.1rem\\'>${emj(ing.u)}</span>'">`  : `<span style="font-size:1.1rem">${emj(ing.u)}</span>`}</div>
         <div><div class="shop-name">${ing.nombre}</div><div class="shop-detail">${paq} ${ing.paqN} · ${cant.toFixed(1)} ${ing.u} necesitás · L${ing.paqP}/empaque</div></div>
       </div><div class="shop-price">L ${cost.toFixed(0)}</div>
     </div>`;
@@ -804,7 +862,7 @@ function renderIC() {
   if(!p.ings.length){el.innerHTML='<div class="empty" style="padding:16px 0;"><div class="ico">📦</div><p>Sin ingredientes aún.</p></div>';return;}
   el.innerHTML=p.ings.map((ing,i)=>`
     <div class="ic-item">
-      <div class="ic-icon">${emj(ing.u)}</div>
+      <div class="ic-icon">${ingIcon(ing.nombre, ing.u)}</div>
       <div class="ic-info"><div class="ic-name">${ing.nombre}</div><div class="ic-meta">${ing.cantBase} ${ing.u} · L${ing.costoU}/${ing.u} · ${ing.paqN} x${ing.paqC} · L${ing.paqP}</div></div>
       <div class="ic-actions">
         <button class="btn-icon btn-edit" onclick="editarIng(${i})">✏️</button>
