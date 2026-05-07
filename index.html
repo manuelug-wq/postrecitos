@@ -262,6 +262,46 @@ body { background: var(--bg); color: var(--text); font-family: var(--f-body); ma
 .empty p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
 .toast { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(10px); background: var(--espresso); color: var(--cream); padding: 10px 22px; border-radius: 100px; font-size: 0.82rem; font-weight: 500; opacity: 0; transition: all 0.25s; z-index: 600; white-space: nowrap; pointer-events: none; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ══ GEAR ICON (Config movido aquí) ══ */
+.cfg-gear { position: absolute; top: 22px; right: 18px; width: 38px; height: 38px; border-radius: 50%; background: var(--paper); border: 1px solid var(--rule); cursor: pointer; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 3px rgba(28,15,7,0.06); z-index: 5; }
+.cfg-gear:active { transform: scale(0.92); }
+
+/* ══ INSUMOS / CATÁLOGO ══ */
+.cat-toolbar { display: flex; gap: 8px; margin-bottom: 14px; align-items: center; }
+.cat-search { flex: 1; background: var(--paper); border: 1.5px solid var(--rule); border-radius: 100px; padding: 10px 16px; font-family: var(--f-body); font-size: 0.9rem; outline: none; }
+.cat-search:focus { border-color: var(--accent); }
+.cat-add-btn { flex-shrink: 0; background: var(--ink); color: var(--paper); border: none; border-radius: 100px; padding: 10px 16px; font-family: var(--f-body); font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.cat-cat-header { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 18px 4px 8px; }
+.cat-cat-header:first-child { margin-top: 4px; }
+.cat-item { display: flex; align-items: center; gap: 11px; padding: 12px; background: var(--mascarpone); border: 1px solid var(--dust); border-radius: 14px; margin-bottom: 8px; }
+.cat-item-icon { width: 44px; height: 44px; background: var(--dust); border-radius: 11px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; flex-shrink: 0; }
+.cat-item-icon img { width: 100%; height: 100%; object-fit: cover; }
+.cat-item-info { flex: 1; min-width: 0; }
+.cat-item-name { font-size: 0.92rem; font-weight: 600; color: var(--espresso); }
+.cat-item-meta { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+.cat-item-price { font-family: var(--f-display); font-size: 1rem; font-weight: 700; color: var(--cocoa); margin-top: 2px; }
+.cat-item-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.cat-empty { text-align: center; padding: 40px 16px; color: var(--muted); font-size: 0.88rem; }
+.cat-empty .ico { font-size: 2.6rem; margin-bottom: 10px; }
+.cat-usage-warning { background: #fff0ee; border: 1.5px solid #f5ccc6; border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.cat-usage-warning .uw-title { font-size: 0.82rem; font-weight: 700; color: var(--danger); margin-bottom: 6px; }
+.cat-usage-warning .uw-list { font-size: 0.8rem; color: var(--cocoa); line-height: 1.5; }
+
+/* ══ PICKER de ingredientes para receta ══ */
+.picker-list { max-height: 50vh; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+.picker-item { display: flex; align-items: center; gap: 11px; padding: 11px 8px; border-radius: 12px; cursor: pointer; transition: background 0.12s; }
+.picker-item:active { background: var(--bg); }
+.picker-item-icon { width: 40px; height: 40px; background: var(--dust); border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; flex-shrink: 0; }
+.picker-item-icon img { width: 100%; height: 100%; object-fit: cover; }
+.picker-item-info { flex: 1; min-width: 0; }
+.picker-item-name { font-size: 0.9rem; font-weight: 600; color: var(--espresso); }
+.picker-item-meta { font-size: 0.68rem; color: var(--muted); margin-top: 1px; }
+.picker-divider { height: 1px; background: var(--rule); margin: 4px 0; }
+.picker-create { display: flex; align-items: center; gap: 11px; padding: 12px 8px; border-radius: 12px; cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.9rem; }
+.picker-create:active { background: rgba(196,124,43,0.08); }
+.picker-create-icon { width: 40px; height: 40px; background: rgba(196,124,43,0.12); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+.cat-stale-pill { display: inline-block; font-size: 0.62rem; font-weight: 700; color: #806220; background: var(--t-honey); padding: 2px 8px; border-radius: 100px; letter-spacing: 0.04em; margin-left: 6px; }
 </style>
 </head>
 <body>
@@ -310,6 +350,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--f-body); ma
   <!-- HOME -->
   <div class="section active" id="tab-home">
     <div class="home-header">
+      <button class="cfg-gear" onclick="goTab('config')" title="Configuración">⚙️</button>
       <div class="home-logo">Postre<em>citos</em></div>
       <div class="home-sub">Calculadora de recetas</div>
       <div class="active-pill" onclick="volverProductos()">🍰 <span id="badge-prod">—</span> · Cambiar →</div>
@@ -331,7 +372,7 @@ body { background: var(--bg); color: var(--text); font-family: var(--f-body); ma
         <div class="home-card c-compras" onclick="goTabCompras()"><div class="hc-icon">🛒</div><div class="hc-name">Compras</div><div class="hc-desc">Lista de empaques a comprar</div></div>
         <div class="home-card c-receta" onclick="goTab('receta')"><div class="hc-icon">📦</div><div class="hc-name">Receta</div><div class="hc-desc">Editá ingredientes y costos</div></div>
         <div class="home-card c-historial" onclick="goTab('historial')"><div class="hc-icon">📋</div><div class="hc-name">Historial</div><div class="hc-desc">Últimos 10 cálculos guardados</div></div>
-        <div class="home-card c-config" onclick="goTab('config')"><div class="hc-icon">⚙️</div><div class="hc-name">Configuración</div><div class="hc-desc">Nombre, porciones base y respaldo</div></div>
+        <div class="home-card c-config" onclick="goTab('insumos')"><div class="hc-icon">📋</div><div class="hc-name">Insumos</div><div class="hc-desc">Catálogo central de ingredientes</div></div>
       </div>
     </div>
   </div>
@@ -420,6 +461,22 @@ body { background: var(--bg); color: var(--text); font-family: var(--f-body); ma
     <div class="page-body"><div id="hist-content"></div></div>
   </div>
 
+  <!-- INSUMOS / CATÁLOGO -->
+  <div class="section" id="tab-insumos">
+    <div class="page-header">
+      <button class="page-back" onclick="goTab('home')">← Inicio</button>
+      <div class="page-title">Insumos</div>
+      <div class="page-sub">Catálogo central — usado por todas las recetas</div>
+    </div>
+    <div class="page-body">
+      <div class="cat-toolbar">
+        <input class="cat-search" id="cat-search" type="text" placeholder="🔍 Buscar insumo..." oninput="renderCatalogo()">
+        <button class="cat-add-btn" onclick="abrirModalCatItem()">+ Nuevo</button>
+      </div>
+      <div id="cat-list"></div>
+    </div>
+  </div>
+
   <!-- CONFIG -->
   <div class="section" id="tab-config">
     <div class="page-header">
@@ -449,44 +506,102 @@ body { background: var(--bg); color: var(--text); font-family: var(--f-body); ma
   <div class="bnav-tab" id="bn-calcular" onclick="goTab('calcular')"><span class="bicon">🧮</span>Calcular</div>
   <div class="bnav-tab" id="bn-compras" onclick="goTabCompras()"><span class="bicon">🛒</span>Compras</div>
   <div class="bnav-tab" id="bn-historial" onclick="goTab('historial')"><span class="bicon">📋</span>Historial</div>
-  <div class="bnav-tab" id="bn-config" onclick="goTab('config')"><span class="bicon">⚙️</span>Config</div>
+  <div class="bnav-tab" id="bn-insumos" onclick="goTab('insumos')"><span class="bicon">📋</span>Insumos</div>
 </nav>
 
-<!-- MODAL INGREDIENTE -->
-<div class="modal-overlay" id="modal-ing">
+<!-- MODAL PICKER de ingredientes (para receta) -->
+<div class="modal-overlay" id="modal-picker">
   <div class="modal">
     <div class="modal-handle"></div>
-    <div class="modal-title" id="modal-ing-title">Agregar ingrediente</div>
-    <div class="field"><label>Nombre</label><input type="text" id="m-nombre" placeholder="Ej: Huevos, Azúcar..."></div>
+    <div class="modal-title">Agregar a la receta</div>
+    <div class="field"><input class="cat-search" id="picker-search" type="text" placeholder="🔍 Buscar insumo..." oninput="renderPicker()" style="width:100%;"></div>
+    <div class="picker-create" onclick="pickerCrearNuevo()">
+      <div class="picker-create-icon">＋</div>
+      <div>Crear insumo nuevo</div>
+    </div>
+    <div class="picker-divider"></div>
+    <div class="picker-list" id="picker-list"></div>
+    <div style="margin-top:14px;">
+      <button class="btn btn-outline" onclick="cerrarModalPicker()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CANTIDAD (después de elegir del picker o al editar receta) -->
+<div class="modal-overlay" id="modal-qty">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-qty-title">Cantidad</div>
+    <div class="field" style="margin-bottom:6px;"><label>Insumo</label><div id="qty-ing-name" style="font-family:var(--f-display);font-size:1.15rem;font-weight:600;color:var(--ink);">—</div></div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-bottom:14px;" id="qty-ing-meta">—</div>
+    <div class="field"><label>Cantidad para <span id="qty-base-lbl">50</span> porciones</label><input type="number" id="qty-cant" placeholder="Ej: 6" step="0.01"></div>
+    <div style="display:flex;gap:10px;margin-top:8px;">
+      <button class="btn btn-outline" onclick="cerrarModalQty()" style="flex:1;">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarQty()" style="flex:2;">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CATÁLOGO ITEM (crear/editar insumo del catálogo) -->
+<div class="modal-overlay" id="modal-cat-item">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" id="modal-cat-title">Nuevo insumo</div>
+    <div class="field"><label>Nombre del insumo</label><input type="text" id="ci-nombre" placeholder="Ej: Huevos, Azúcar..."></div>
+    <div class="field">
+      <label>Categoría</label>
+      <select id="ci-categoria">
+        <option value="Sin categoría">Sin categoría</option>
+        <option value="Lácteos">Lácteos</option>
+        <option value="Secos / Harinas">Secos / Harinas</option>
+        <option value="Endulzantes">Endulzantes</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Empaque">Empaque</option>
+        <option value="Otros">Otros</option>
+      </select>
+    </div>
     <div class="field">
       <label>Unidad de medida</label>
-      <div class="unit-pills">
-        <div class="upill active" onclick="setU('unidades')">unidades</div>
-        <div class="upill" onclick="setU('g')">g</div>
-        <div class="upill" onclick="setU('kg')">kg</div>
-        <div class="upill" onclick="setU('ml')">ml</div>
-        <div class="upill" onclick="setU('L')">L</div>
-        <div class="upill" onclick="setU('tazas')">tazas</div>
-        <div class="upill" onclick="setU('cdas')">cdas</div>
+      <div class="unit-pills" id="ci-unit-pills">
+        <div class="upill active" onclick="setCiU('unidades')">unidades</div>
+        <div class="upill" onclick="setCiU('g')">g</div>
+        <div class="upill" onclick="setCiU('kg')">kg</div>
+        <div class="upill" onclick="setCiU('ml')">ml</div>
+        <div class="upill" onclick="setCiU('L')">L</div>
+        <div class="upill" onclick="setCiU('tazas')">tazas</div>
+        <div class="upill" onclick="setCiU('cdas')">cdas</div>
       </div>
-    </div>
-    <div class="field"><label>Cantidad para <span id="m-base-lbl">50</span> porciones</label><input type="number" id="m-cant" placeholder="Ej: 42" step="0.01"></div>
-    <div class="field">
-      <label>Costo por <span id="m-unit-lbl">unidad</span> (L)</label>
-      <input type="number" id="m-costo-u" placeholder="Ej: 2.83" step="0.01">
-      <div style="font-size:0.68rem;color:var(--muted);margin-top:4px;">Precio unitario — se multiplica por cantidad exacta</div>
     </div>
     <div class="divider"></div>
     <div class="section-sep">📦 Empaque del súper</div>
     <div class="two-col">
-      <div class="field" style="margin-bottom:0;"><label>Cant. por empaque</label><input type="number" id="m-paq-c" placeholder="Ej: 30" step="0.01"></div>
-      <div class="field" style="margin-bottom:0;"><label>Nombre empaque</label><input type="text" id="m-paq-n" placeholder="Ej: cartón"></div>
+      <div class="field" style="margin-bottom:0;"><label>Cant. por empaque</label><input type="number" id="ci-paq-c" placeholder="Ej: 30" step="0.01"></div>
+      <div class="field" style="margin-bottom:0;"><label>Nombre empaque</label><input type="text" id="ci-paq-n" placeholder="Ej: cartón"></div>
     </div>
-    <div class="field" style="margin-top:10px;"><label>Precio del empaque (L)</label><input type="number" id="m-paq-p" placeholder="Ej: 85" step="0.50"></div>
+    <div class="field" style="margin-top:10px;"><label>Precio del empaque (L)</label><input type="number" id="ci-paq-p" placeholder="Ej: 85" step="0.50"></div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-top:-6px;margin-bottom:12px;">
+      💡 Costo unitario calculado: <span id="ci-costo-calc" style="font-weight:700;color:var(--cocoa);">L 0.00</span>
+    </div>
     <div style="display:flex;gap:10px;margin-top:8px;">
-      <button class="btn btn-outline" onclick="cerrarModalIng()" style="flex:1;">Cancelar</button>
-      <button class="btn btn-primary" onclick="guardarIng()" style="flex:2;">Guardar</button>
+      <button class="btn btn-outline" onclick="cerrarModalCatItem()" style="flex:1;">Cancelar</button>
+      <button class="btn btn-primary" onclick="guardarCatItem()" style="flex:2;">Guardar</button>
     </div>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR BLOQUEADO -->
+<div class="modal-overlay" id="modal-cat-block">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title" style="color:var(--danger);">⛔ No se puede eliminar</div>
+    <div class="cat-usage-warning">
+      <div class="uw-title" id="cb-ing-name">—</div>
+      <div class="uw-list" id="cb-usage-list">—</div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--muted);line-height:1.5;margin-bottom:14px;">
+      Quita este insumo de las recetas listadas antes de poder eliminarlo del catálogo.
+    </p>
+    <button class="btn btn-primary" onclick="cerrarModalCatBlock()">Entendido</button>
   </div>
 </div>
 
@@ -568,15 +683,23 @@ function ingIcon(nombre, u) {
 let pinVal = '';
 let productos = [];   // [{id, nombre, emoji, base, ings:[]}]
 let historial = [];   // [{fecha, producto, porciones, costo, pv, util}]
+let catalogo = [];    // [{id, nombre, categoria, u, paqC, paqN, paqP, actualizado}]
 let prodActivo = null; // id del producto activo
 let editIngIdx = -1;
+let editCatId = null;     // id del insumo del catálogo en edición
+let pickerEditIdx = -1;   // si !=-1, picker está editando ese ingrediente
 let uActual = 'unidades';
+let ciUActual = 'unidades'; // unidad seleccionada en modal catálogo
 let kpVal = '';
 let lastPorc = 0;
 let pendingDel = -1;
 let delTimer = null;
 let pendingDelProd = -1;
 let delProdTimer = null;
+let pendingDelCat = null;
+let delCatTimer = null;
+
+const CATEGORIAS = ['Sin categoría','Lácteos','Secos / Harinas','Endulzantes','Frutas','Empaque','Otros'];
 
 // ══ PERSISTENCIA ══
 function loadData() {
@@ -584,16 +707,112 @@ function loadData() {
     const p = localStorage.getItem('ptc_productos');
     const h = localStorage.getItem('ptc_hist');
     const a = localStorage.getItem('ptc_activo');
+    const c = localStorage.getItem('ptc_catalogo');
     productos = p ? JSON.parse(p) : getDefaults();
     historial = h ? JSON.parse(h) : [];
+    catalogo = c ? JSON.parse(c) : [];
     prodActivo = a || null;
-  } catch(e) { productos = getDefaults(); }
+  } catch(e) { productos = getDefaults(); catalogo = []; }
+  migrarCatalogoSiNecesario();
 }
 
 function saveData() {
   localStorage.setItem('ptc_productos', JSON.stringify(productos));
   localStorage.setItem('ptc_hist', JSON.stringify(historial));
+  localStorage.setItem('ptc_catalogo', JSON.stringify(catalogo));
   if (prodActivo) localStorage.setItem('ptc_activo', prodActivo);
+}
+
+// ══ MIGRACIÓN AUTOMÁTICA ══
+// Recorre todas las recetas y mete los ingredientes únicos al catálogo.
+// Cada ingrediente en una receta queda como referencia {catalogoId, cantBase}.
+function migrarCatalogoSiNecesario() {
+  const yaMigrado = localStorage.getItem('ptc_migrado_v1') === '1';
+  if (yaMigrado) return;
+  let importados = 0;
+  productos.forEach(prod => {
+    if (!prod.ings) return;
+    prod.ings.forEach((ing, idx) => {
+      // Si ya tiene catalogoId, está migrado
+      if (ing.catalogoId) return;
+      // Si no tiene nombre/datos completos, saltar
+      if (!ing.nombre) return;
+      // Buscar en catálogo por nombre normalizado
+      let cat = findCatByName(ing.nombre);
+      if (!cat) {
+        cat = {
+          id: 'cat_' + Date.now() + '_' + Math.floor(Math.random()*1000),
+          nombre: ing.nombre,
+          categoria: adivinarCategoria(ing.nombre),
+          u: ing.u || 'unidades',
+          paqC: ing.paqC || 1,
+          paqN: ing.paqN || 'paquete',
+          paqP: ing.paqP || 0,
+          actualizado: new Date().toISOString().slice(0,10)
+        };
+        catalogo.push(cat);
+        importados++;
+      }
+      // Reemplazar el ingrediente por una referencia
+      prod.ings[idx] = { catalogoId: cat.id, cantBase: ing.cantBase };
+    });
+  });
+  localStorage.setItem('ptc_migrado_v1', '1');
+  saveData();
+  if (importados > 0) {
+    setTimeout(() => toast(`📋 ${importados} insumos importados al catálogo`), 800);
+  }
+}
+
+function adivinarCategoria(nombre) {
+  const n = nombre.toLowerCase();
+  if (/leche|crema|queso|mantequilla|mascarpone|yogur|huevo/.test(n)) return 'Lácteos';
+  if (/harina|levadura|bicarbonato|hornear|cacao|sal|gelatina|maicena/.test(n)) return 'Secos / Harinas';
+  if (/azúcar|azucar|miel|melaza|glass/.test(n)) return 'Endulzantes';
+  if (/fresa|mango|limon|limón|naranja|frambuesa|arandano|arándano|piña|manzana|banano|fruta/.test(n)) return 'Frutas';
+  if (/empaque|caja|sticker|envase|bolsa|tapa|vaso/.test(n)) return 'Empaque';
+  return 'Sin categoría';
+}
+
+// ══ HELPERS DEL CATÁLOGO ══
+function getCatItem(id) { return catalogo.find(c => c.id === id); }
+
+function findCatByName(nombre) {
+  const norm = nombre.toLowerCase().trim().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  return catalogo.find(c => c.nombre.toLowerCase().trim().normalize('NFD').replace(/[̀-ͯ]/g,'') === norm);
+}
+
+// Devuelve los productos (recetas) que usan este insumo del catálogo
+function getCatUsage(catId) {
+  const usados = [];
+  productos.forEach(p => {
+    if (p.ings && p.ings.some(i => i.catalogoId === catId)) {
+      usados.push(p.nombre);
+    }
+  });
+  return usados;
+}
+
+// Resuelve un ingrediente de receta (catalogoId o legacy inline) a sus datos completos
+// Retorna: {nombre, u, cantBase, costoU, paqC, paqN, paqP} o null si el catálogo se eliminó
+function ingResolve(ing) {
+  if (ing.catalogoId) {
+    const cat = getCatItem(ing.catalogoId);
+    if (!cat) return null;
+    const costoU = cat.paqC > 0 ? cat.paqP / cat.paqC : 0;
+    return {
+      nombre: cat.nombre,
+      u: cat.u,
+      cantBase: ing.cantBase,
+      costoU: costoU,
+      paqC: cat.paqC,
+      paqN: cat.paqN,
+      paqP: cat.paqP,
+      catalogoId: cat.id
+    };
+  }
+  // Legacy inline (no debería existir tras migración, pero por compatibilidad)
+  return ing;
 }
 
 function getDefaults() {
@@ -741,18 +960,19 @@ function crearProducto() {
 }
 
 // ══ TABS ══
-const BNAV = {home:'bn-home',calcular:'bn-calcular',compras:'bn-compras',receta:'bn-historial',historial:'bn-historial',config:'bn-config'};
+const BNAV = {home:'bn-home',calcular:'bn-calcular',compras:'bn-compras',receta:'bn-historial',historial:'bn-historial',config:null,insumos:'bn-insumos'};
 function goTab(id) {
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   document.querySelectorAll('.bnav-tab').forEach(t=>t.classList.remove('active'));
-  const bn = document.getElementById(BNAV[id]);
-  if(bn) bn.classList.add('active');
+  const bnId = BNAV[id];
+  if(bnId) { const bn = document.getElementById(bnId); if(bn) bn.classList.add('active'); }
   document.getElementById('app-scroll').scrollTop = 0;
   if(id==='receta') renderIC();
   if(id==='historial') renderHistorial();
   if(id==='compras') renderCompras();
   if(id==='config') actualizarUIProducto();
+  if(id==='insumos') renderCatalogo();
 }
 function goTabCompras() { renderCompras(); goTab('compras'); }
 
@@ -790,7 +1010,12 @@ function recalcular() {
   const factor = porc/p.base;
   const pv = parseFloat(document.getElementById('precio-venta').value)||0;
   let costoTotal=0, html='';
-  p.ings.forEach(ing=>{
+  p.ings.forEach(ingRef=>{
+    const ing = ingResolve(ingRef);
+    if(!ing){
+      html+=`<div class="ings-item"><div class="ings-left"><div class="ings-icon">⚠️</div><div><div class="ings-name" style="color:var(--danger);">Insumo eliminado</div><div class="ings-base">Quitalo de la receta</div></div></div></div>`;
+      return;
+    }
     const cant=ing.cantBase*factor;
     const costo=cant*ing.costoU;
     costoTotal+=costo;
@@ -831,7 +1056,7 @@ function guardarHistorial() {
   const pv=parseFloat(document.getElementById('precio-venta').value)||0;
   const factor=porc/p.base;
   let costoTotal=0;
-  p.ings.forEach(ing=>{costoTotal+=(ing.cantBase*factor)*ing.costoU;});
+  p.ings.forEach(ingRef=>{const ing=ingResolve(ingRef);if(ing)costoTotal+=(ing.cantBase*factor)*ing.costoU;});
   const ingreso=pv*porc, util=ingreso-costoTotal;
   const now=new Date();
   const fecha=now.toLocaleDateString('es-HN',{day:'2-digit',month:'short',year:'numeric'});
@@ -869,7 +1094,9 @@ function renderCompras() {
   document.getElementById('compras-sub').textContent='Para '+lastPorc+' porciones de '+p.nombre;
   const factor=lastPorc/p.base;
   let total=0,html='';
-  p.ings.forEach(ing=>{
+  p.ings.forEach(ingRef=>{
+    const ing=ingResolve(ingRef);
+    if(!ing) return;
     const cant=ing.cantBase*factor;
     const paq=Math.ceil(cant/ing.paqC);
     const cost=paq*ing.paqP;
@@ -894,57 +1121,35 @@ function renderIC() {
   if(!p)return;
   document.getElementById('base-label').textContent=p.base;
   const el=document.getElementById('ic-list');
-  if(!p.ings.length){el.innerHTML='<div class="empty" style="padding:16px 0;"><div class="ico">📦</div><p>Sin ingredientes aún.</p></div>';return;}
-  el.innerHTML=p.ings.map((ing,i)=>`
-    <div class="ic-item">
+  if(!p.ings.length){el.innerHTML='<div class="empty" style="padding:16px 0;"><div class="ico">📦</div><p>Sin ingredientes aún.<br>Tocá <b>+ Agregar ingrediente</b> arriba.</p></div>';return;}
+  el.innerHTML=p.ings.map((ingRef,i)=>{
+    const ing=ingResolve(ingRef);
+    if(!ing){
+      return `<div class="ic-item"><div class="ic-icon">⚠️</div><div class="ic-info"><div class="ic-name" style="color:var(--danger);">Insumo eliminado</div><div class="ic-meta">Tocá 🗑️ para quitar</div></div><div class="ic-actions"><button class="btn-icon btn-del" onclick="borrarIng(${i})">🗑️</button></div></div>`;
+    }
+    return `<div class="ic-item">
       <div class="ic-icon">${ingIcon(ing.nombre, ing.u)}</div>
-      <div class="ic-info"><div class="ic-name">${ing.nombre}</div><div class="ic-meta">${ing.cantBase} ${ing.u} · L${ing.costoU}/${ing.u} · ${ing.paqN} x${ing.paqC} · L${ing.paqP}</div></div>
+      <div class="ic-info"><div class="ic-name">${ing.nombre}</div><div class="ic-meta">${ing.cantBase} ${ing.u} para ${p.base} porc. · L${ing.costoU.toFixed(3)}/${ing.u}</div></div>
       <div class="ic-actions">
         <button class="btn-icon btn-edit" onclick="editarIng(${i})">✏️</button>
         <button class="btn-icon btn-del" onclick="borrarIng(${i})">🗑️</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
-// ══ MODAL INGREDIENTE ══
-function abrirModalIng(idx=-1) {
+// ══ FLUJO RECETA: Agregar/editar ingredientes (usa catálogo) ══
+// El botón "+ Agregar ingrediente" en la receta abre el PICKER del catálogo.
+function abrirModalIng() { abrirPicker(-1); }
+function editarIng(i) {
+  // Editar ingrediente de receta = solo cambiar la cantidad (los datos vienen del catálogo)
   const p=getProd();
-  editIngIdx=idx;
-  document.getElementById('modal-ing-title').textContent=idx>=0?'Editar ingrediente':'Agregar ingrediente';
-  document.getElementById('m-base-lbl').textContent=p.base;
-  if(idx>=0){
-    const g=p.ings[idx];
-    document.getElementById('m-nombre').value=g.nombre;
-    document.getElementById('m-cant').value=g.cantBase;
-    document.getElementById('m-costo-u').value=g.costoU;
-    document.getElementById('m-paq-c').value=g.paqC;
-    document.getElementById('m-paq-n').value=g.paqN;
-    document.getElementById('m-paq-p').value=g.paqP;
-    setU(g.u);
-  } else {
-    ['m-nombre','m-cant','m-costo-u','m-paq-c','m-paq-n','m-paq-p'].forEach(id=>document.getElementById(id).value='');
-    setU('unidades');
-  }
-  document.getElementById('modal-ing').classList.add('open');
+  const ingRef=p.ings[i];
+  const ing=ingResolve(ingRef);
+  if(!ing){toast('⚠️ Este insumo ya no existe en el catálogo');return;}
+  pickerEditIdx=i;
+  abrirModalQty(ingRef.catalogoId, ingRef.cantBase);
 }
-function editarIng(i){abrirModalIng(i);}
-function cerrarModalIng(){document.getElementById('modal-ing').classList.remove('open');}
-function setU(u){uActual=u;document.querySelectorAll('.upill').forEach(p=>p.classList.toggle('active',p.textContent===u));document.getElementById('m-unit-lbl').textContent=u;}
-
-function guardarIng() {
-  const p=getProd();
-  const nombre=document.getElementById('m-nombre').value.trim();
-  const cantBase=parseFloat(document.getElementById('m-cant').value);
-  const costoU=parseFloat(document.getElementById('m-costo-u').value);
-  const paqC=parseFloat(document.getElementById('m-paq-c').value);
-  const paqN=document.getElementById('m-paq-n').value.trim()||'paquete';
-  const paqP=parseFloat(document.getElementById('m-paq-p').value);
-  if(!nombre||isNaN(cantBase)||isNaN(costoU)||isNaN(paqC)||isNaN(paqP)){toast('⚠️ Completá todos los campos');return;}
-  const ing={nombre,u:uActual,cantBase,costoU,paqC,paqN,paqP};
-  if(editIngIdx>=0){p.ings[editIngIdx]=ing;toast('✅ Actualizado');}else{p.ings.push(ing);toast('✅ Agregado');}
-  saveData();cerrarModalIng();renderIC();recalcular();
-}
-
 function borrarIng(i) {
   if(pendingDel===i){
     clearTimeout(delTimer);pendingDel=-1;
@@ -955,6 +1160,232 @@ function borrarIng(i) {
     delTimer=setTimeout(()=>{pendingDel=-1;},3000);
   }
 }
+
+// ══ PICKER: Buscar y elegir insumo del catálogo ══
+function abrirPicker(editIdx=-1) {
+  pickerEditIdx = editIdx;
+  document.getElementById('picker-search').value = '';
+  renderPicker();
+  document.getElementById('modal-picker').classList.add('open');
+}
+function cerrarModalPicker(){document.getElementById('modal-picker').classList.remove('open');}
+
+function renderPicker() {
+  const q = (document.getElementById('picker-search').value || '').toLowerCase().trim();
+  const p = getProd();
+  // Filtrar catálogo
+  let items = catalogo.slice();
+  if(q) items = items.filter(c => c.nombre.toLowerCase().includes(q));
+  // Excluir los que ya están en la receta (a menos que esté en modo búsqueda activa)
+  const usadosIds = (p && p.ings) ? p.ings.map(i=>i.catalogoId).filter(Boolean) : [];
+  items = items.filter(c => !usadosIds.includes(c.id));
+  // Ordenar alfabéticamente
+  items.sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+  const el = document.getElementById('picker-list');
+  if(!items.length){
+    el.innerHTML = `<div style="text-align:center;padding:24px 12px;color:var(--muted);font-size:0.86rem;">${q ? 'Sin resultados para "'+q+'"' : 'Todos los insumos del catálogo ya están en esta receta. Creá uno nuevo arriba.'}</div>`;
+    return;
+  }
+  el.innerHTML = items.map(c => {
+    const costoU = c.paqC > 0 ? (c.paqP/c.paqC) : 0;
+    return `<div class="picker-item" onclick="pickerSeleccionar('${c.id}')">
+      <div class="picker-item-icon">${ingIcon(c.nombre, c.u)}</div>
+      <div class="picker-item-info">
+        <div class="picker-item-name">${c.nombre}</div>
+        <div class="picker-item-meta">${c.categoria} · L${costoU.toFixed(3)}/${c.u} · ${c.paqN} x${c.paqC} = L${c.paqP}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function pickerSeleccionar(catId) {
+  cerrarModalPicker();
+  abrirModalQty(catId, '');
+}
+
+function pickerCrearNuevo() {
+  // Cerrar picker, abrir form de catálogo. Al guardar, vuelve a abrir el modal-qty con el nuevo id.
+  cerrarModalPicker();
+  abrirModalCatItem(null, /*fromPicker=*/true);
+}
+
+// ══ MODAL CANTIDAD ══
+let qtyCatId = null;
+function abrirModalQty(catId, valor) {
+  const cat = getCatItem(catId);
+  if(!cat){toast('⚠️ Insumo no encontrado');return;}
+  const p = getProd();
+  qtyCatId = catId;
+  document.getElementById('modal-qty-title').textContent = pickerEditIdx>=0 ? 'Editar cantidad' : 'Cantidad para la receta';
+  document.getElementById('qty-ing-name').textContent = cat.nombre;
+  document.getElementById('qty-ing-meta').textContent = `${cat.categoria} · L${(cat.paqP/cat.paqC).toFixed(3)} por ${cat.u}`;
+  document.getElementById('qty-base-lbl').textContent = p.base;
+  document.getElementById('qty-cant').value = (valor !== '' && valor !== null && valor !== undefined) ? valor : '';
+  document.getElementById('modal-qty').classList.add('open');
+  setTimeout(()=>document.getElementById('qty-cant').focus(),120);
+}
+function cerrarModalQty(){document.getElementById('modal-qty').classList.remove('open');pickerEditIdx=-1;qtyCatId=null;}
+
+function guardarQty() {
+  const p = getProd();
+  const cant = parseFloat(document.getElementById('qty-cant').value);
+  if(isNaN(cant) || cant <= 0){toast('⚠️ Ingresá una cantidad válida');return;}
+  if(!qtyCatId){toast('⚠️ Sin insumo seleccionado');return;}
+  if(pickerEditIdx >= 0){
+    p.ings[pickerEditIdx] = { catalogoId: qtyCatId, cantBase: cant };
+    toast('✅ Actualizado');
+  } else {
+    p.ings.push({ catalogoId: qtyCatId, cantBase: cant });
+    toast('✅ Agregado');
+  }
+  saveData(); cerrarModalQty(); renderIC(); recalcular();
+}
+
+// ══ CATÁLOGO: Render lista ══
+function renderCatalogo() {
+  const q = (document.getElementById('cat-search').value || '').toLowerCase().trim();
+  const el = document.getElementById('cat-list');
+  let items = catalogo.slice();
+  if(q) items = items.filter(c => c.nombre.toLowerCase().includes(q));
+  if(!items.length){
+    el.innerHTML = `<div class="cat-empty"><div class="ico">📋</div><p>${q ? 'Sin resultados para "'+q+'"' : 'Aún no hay insumos.<br>Tocá <b>+ Nuevo</b> arriba.'}</p></div>`;
+    return;
+  }
+  // Agrupar por categoría
+  const grupos = {};
+  items.forEach(c => {
+    const cat = c.categoria || 'Sin categoría';
+    (grupos[cat] = grupos[cat] || []).push(c);
+  });
+  // Orden estable de categorías
+  const orden = CATEGORIAS.filter(c => grupos[c]);
+  let html = '';
+  orden.forEach(catName => {
+    html += `<div class="cat-cat-header">${catName}</div>`;
+    grupos[catName].sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+    grupos[catName].forEach(c => {
+      const costoU = c.paqC > 0 ? (c.paqP/c.paqC) : 0;
+      const usados = getCatUsage(c.id).length;
+      const usoTxt = usados > 0 ? `· en ${usados} receta${usados>1?'s':''}` : '· sin uso';
+      html += `<div class="cat-item">
+        <div class="cat-item-icon">${ingIcon(c.nombre, c.u)}</div>
+        <div class="cat-item-info">
+          <div class="cat-item-name">${c.nombre}</div>
+          <div class="cat-item-meta">${c.paqN} x${c.paqC} ${c.u} ${usoTxt}</div>
+          <div class="cat-item-price">L ${c.paqP} <span style="font-size:.7rem;font-weight:500;color:var(--muted);">(L ${costoU.toFixed(3)}/${c.u})</span></div>
+        </div>
+        <div class="cat-item-actions">
+          <button class="btn-icon btn-edit" onclick="abrirModalCatItem('${c.id}')">✏️</button>
+          <button class="btn-icon btn-del" onclick="borrarCatItem('${c.id}')">🗑️</button>
+        </div>
+      </div>`;
+    });
+  });
+  el.innerHTML = html;
+}
+
+// ══ CATÁLOGO: Modal crear/editar ══
+let _catItemFromPicker = false;
+function abrirModalCatItem(id=null, fromPicker=false) {
+  _catItemFromPicker = fromPicker;
+  editCatId = id;
+  document.getElementById('modal-cat-title').textContent = id ? 'Editar insumo' : 'Nuevo insumo';
+  if(id){
+    const c = getCatItem(id);
+    if(!c)return;
+    document.getElementById('ci-nombre').value = c.nombre;
+    document.getElementById('ci-categoria').value = c.categoria || 'Sin categoría';
+    document.getElementById('ci-paq-c').value = c.paqC;
+    document.getElementById('ci-paq-n').value = c.paqN;
+    document.getElementById('ci-paq-p').value = c.paqP;
+    setCiU(c.u);
+  } else {
+    ['ci-nombre','ci-paq-c','ci-paq-n','ci-paq-p'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('ci-categoria').value = 'Sin categoría';
+    setCiU('unidades');
+  }
+  recalcCiCostoU();
+  ['ci-paq-c','ci-paq-p'].forEach(id => {
+    const inp = document.getElementById(id);
+    inp.oninput = recalcCiCostoU;
+  });
+  document.getElementById('modal-cat-item').classList.add('open');
+}
+function cerrarModalCatItem(){document.getElementById('modal-cat-item').classList.remove('open');editCatId=null;_catItemFromPicker=false;}
+function setCiU(u){ciUActual=u;document.querySelectorAll('#ci-unit-pills .upill').forEach(p=>p.classList.toggle('active',p.textContent===u));}
+function recalcCiCostoU(){
+  const c = parseFloat(document.getElementById('ci-paq-c').value)||0;
+  const p = parseFloat(document.getElementById('ci-paq-p').value)||0;
+  const u = ciUActual || 'unidades';
+  const v = c > 0 ? (p/c) : 0;
+  document.getElementById('ci-costo-calc').textContent = `L ${v.toFixed(4)} / ${u}`;
+}
+
+function guardarCatItem() {
+  const nombre = document.getElementById('ci-nombre').value.trim();
+  const categoria = document.getElementById('ci-categoria').value || 'Sin categoría';
+  const paqC = parseFloat(document.getElementById('ci-paq-c').value);
+  const paqN = document.getElementById('ci-paq-n').value.trim() || 'paquete';
+  const paqP = parseFloat(document.getElementById('ci-paq-p').value);
+  if(!nombre || isNaN(paqC) || isNaN(paqP)){toast('⚠️ Completá nombre, cantidad y precio');return;}
+  if(paqC <= 0){toast('⚠️ Cant. por empaque debe ser mayor a 0');return;}
+  // Verificar duplicado de nombre (solo al crear o si cambió el nombre)
+  if(!editCatId){
+    const dup = findCatByName(nombre);
+    if(dup){toast('⚠️ Ya existe un insumo con ese nombre');return;}
+  } else {
+    const dup = findCatByName(nombre);
+    if(dup && dup.id !== editCatId){toast('⚠️ Ya existe un insumo con ese nombre');return;}
+  }
+  const hoy = new Date().toISOString().slice(0,10);
+  if(editCatId){
+    const c = getCatItem(editCatId);
+    c.nombre = nombre; c.categoria = categoria; c.u = ciUActual;
+    c.paqC = paqC; c.paqN = paqN; c.paqP = paqP; c.actualizado = hoy;
+    saveData();
+    const wasFromPicker = _catItemFromPicker;
+    cerrarModalCatItem();
+    renderCatalogo();
+    renderIC();
+    recalcular();
+    toast('✅ Insumo actualizado');
+    if(wasFromPicker) abrirPicker(pickerEditIdx);
+  } else {
+    const newId = 'cat_' + Date.now();
+    catalogo.push({ id:newId, nombre, categoria, u:ciUActual, paqC, paqN, paqP, actualizado:hoy });
+    saveData();
+    const wasFromPicker = _catItemFromPicker;
+    cerrarModalCatItem();
+    renderCatalogo();
+    toast('✅ Insumo creado');
+    // Si vino del picker, abrimos directamente la cantidad de este nuevo insumo
+    if(wasFromPicker){ abrirModalQty(newId, ''); }
+  }
+}
+
+function borrarCatItem(id) {
+  const usados = getCatUsage(id);
+  if(usados.length > 0){
+    const c = getCatItem(id);
+    document.getElementById('cb-ing-name').textContent = c ? c.nombre : 'Insumo';
+    document.getElementById('cb-usage-list').innerHTML = 'Usado en: <b>' + usados.join('</b>, <b>') + '</b>';
+    document.getElementById('modal-cat-block').classList.add('open');
+    pendingDelCat = null;
+    return;
+  }
+  // Doble tap para confirmar
+  if(pendingDelCat === id){
+    clearTimeout(delCatTimer); pendingDelCat = null;
+    catalogo = catalogo.filter(c => c.id !== id);
+    saveData(); renderCatalogo();
+    toast('🗑️ Insumo eliminado');
+  } else {
+    pendingDelCat = id;
+    toast('🗑️ Tocá de nuevo para confirmar');
+    delCatTimer = setTimeout(()=>{pendingDelCat=null;},3000);
+  }
+}
+function cerrarModalCatBlock(){document.getElementById('modal-cat-block').classList.remove('open');}
 
 // ══ CONFIG ══
 function saveConfig() {
